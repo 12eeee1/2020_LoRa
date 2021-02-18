@@ -1,0 +1,70 @@
+#!/usb/bin/env python
+
+"""
+	waits for incomming message and sends response
+"""
+
+import sys
+import os
+import array
+
+
+from mqtt_publish import * 
+from sqlite import * 
+
+sys.path.append(
+	os.path.join(
+		os.path.dirname(__file__),
+		'..'
+	)
+)
+
+filter = filter_update()
+
+import lib as pyrfm
+
+conf={
+	'll':{
+		'type':'rfm95'
+	},
+	'pl':{
+		'type':	'serial_seed',
+
+		'port': '/dev/serial0'
+	}
+}
+ll=pyrfm.getLL(conf)
+
+print('HW-Version: ', ll.getVersion())
+if ll.setOpModeSleep(True,True): #LoRa基礎設定
+	ll.setFiFo()
+	ll.setOpModeIdle()
+	ll.setModemConfig('Bw125Cr45Sf128');
+	ll.setPreambleLength(8)
+	ll.setFrequency(868) #節點和伺服器頻率要相同
+	ll.setTxPower(13)
+	
+	while True: #成功連結LoRa模組之後，等待接收訊號
+
+		if ll.waitRX(timeout=3): #成功接收訊號
+			data=ll.recv() #取出資料封包，預設取前四欄
+			header=data[0:4]
+			msg=data[4:]
+			
+
+			try: #節點將自己的編號回傳給伺服器
+				
+header.append(array.array('B', msg).tostring())
+				main(header) #伺服器MQTT給資料庫
+
+
+				print('success!')
+			except:
+
+				print('update_failed!')
+			print('header: ',header)
+			
+			print('message:',array.array('B', msg).tostring())
+			ll.sendStr('Got your message haha!') #回傳訊息給節點
+			
+			
