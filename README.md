@@ -1,5 +1,6 @@
 # 2020_LoRa
 介紹
+https://docs.google.com/document/d/1I8NoeGoUTi9nTRIsGepPU8eElCjJ0cII4YjIA55bf8c/edit?usp=sharing
 
 -----------------------------------
 [gateway]中為Gateway所用到的程式。
