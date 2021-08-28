@@ -18,7 +18,7 @@ cu.execute("create table data(node,time,value)")
 
 #在資料表data更新資料:
 #例:在node= Node3 的欄位中，更改他的value為121
-#cu.execute("update data set node = 'Node3' where value = '121'")
+#cu.execute("update data set value = 121 where node = 'Node3'")
 
 #在Table中建立資料
 cu.execute("insert into data values('Node1',NULL,NULL)")
