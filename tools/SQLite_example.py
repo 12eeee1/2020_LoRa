@@ -37,7 +37,7 @@ def Update_Data():
   #cu.execute("update weather set temp = {b}, rain = {c}, time= '{d}' where no = '{a}'".format(a=x1,b=x2,c=x3,d=x4))
   #conn.commit()
   
-def D_Data():
+def Delete_Data():
   #刪除資料，其實就是用Updata的方式將全部/部分資料變成空值(NULL)
   #如果是刪除"部分"，那就先找出指定要刪除的項目，再利用Update_Data()的方式將no = 1的資料改成NULL即可
   #如果要刪除"全部"，可參照:
@@ -47,11 +47,13 @@ def D_Data():
   for i in range(1, n + 1):  #將每一項的時間、溫度、雨量都刪除，只留下項目
       cu.execute("update weather set time = NULL,temp = NULL,rain = NULL where  no = '{a}'".format(a=i))
       conn.commit()
-      
+
       
 def Select_Data():
   #查詢資料，列出資料表weather中全部項目:
   cu.execute("select * from weather")
   print(cu.fetchall())
 
-cu.close()
+  
+Select_Data() #查詢資料表
+cu.close() #關閉資料表
