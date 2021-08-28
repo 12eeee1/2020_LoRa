@@ -34,7 +34,7 @@ def Update_Data():
   #x2 = 18 #溫度
   #x3 = 50 #雨量
   #x4 = '21:17:56' #時間
-  #cu.execute("update weather set temp = {b}, rain = {c}, time= '{d}' where no = {a}".format(a=x1,b=x2,c=x3,d=x4))
+  #cu.execute("update weather set temp = {b}, rain = {c}, time= '{d}' where no = '{a}'".format(a=x1,b=x2,c=x3,d=x4))
   #conn.commit()
   
 def Update_Data():
